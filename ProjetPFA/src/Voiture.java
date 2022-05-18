@@ -26,24 +26,41 @@ public class Voiture {
 
             String instruction = instructions.get();
 
-            switch (instruction) {
-                case "END_OF_STREAM":
-                    break;
-                case "left":
-                    break;
-                case "right":
-                    break;
-                case "straight-on":
-                    break;
-                default:
-                    if(instruction.matches(PARK_INSTRUCTION_REGEX)) {
-                        instruction.trim();
-                        int timeToPark = Integer.valueOf(instruction.substring(4));
-                        this.timeToPark += timeToPark;
-                        tryToPark();
-                    }
-                    break;
+            if (position instanceof Troncon){
+                position = position.getNext();
+                System.out.println("arrivé au feu");
+            }else{
+                switch (instruction) {
+                    case "END_OF_STREAM":
+                        System.out.println("Je suis arrivé");
+                        break;
+                    case "left":
+                        System.out.println("Je prend a gauche");
+                        position = position.getLeft();
+                        nextACtion = position.getLength();
+
+                        break;
+                    case "right":
+                        System.out.println("Je prend a droite");
+                        position = position.getRigth();
+                        nextACtion = position.getLength();
+                        break;
+                    case "straight-on":
+                        System.out.println("Je prend tout droit");
+                        position = position.getStraight();
+                        nextACtion = position.getLength();
+                        break;
+                    default:
+                        if(instruction.matches(PARK_INSTRUCTION_REGEX)) {
+                            instruction.trim();
+                            int timeToPark = Integer.valueOf(instruction.substring(5));
+                            this.timeToPark += timeToPark;
+                            tryToPark();
+                        }
+                        break;
+                }
             }
+
         }
         else {
             if(isParked) timeToPark--;

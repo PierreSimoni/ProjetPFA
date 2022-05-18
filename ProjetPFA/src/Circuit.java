@@ -16,7 +16,7 @@ public class Circuit {
 
     public static void main(String[] args) {
         Circuit circuit = new Circuit(60);
-        circuit.init();
+
         circuit.start();
     }
 
@@ -50,7 +50,7 @@ public class Circuit {
         Instructions instructions1 = new Instructions(queue1, new Supplier<Queue<String>>() {
             @Override
             public Queue<String> get() {
-                return queue1;
+                return new LinkedList<>(Arrays.asList("left", "right", "park 10", "straight-on"));
             }
         });
 
@@ -63,8 +63,11 @@ public class Circuit {
         });
 
         Voiture v1 = new Voiture(this, instructions1, false, parking);
+        voitures.add(v1);
         Voiture v2 = new Voiture(this, instructions2, false, parking);
+        voitures.add(v2);
         Voiture v3 = new Voiture(this, instructions1, false, parking);
+        voitures.add(v3);
     }
 
     public void start() {

@@ -10,6 +10,7 @@ public class Troncon extends Case{
         this.length = length;
     }
 
+    @Override
     public Case getNext() {
         return next;
     }
@@ -21,8 +22,10 @@ public class Troncon extends Case{
     public boolean isAccesPaking() {
         return accesPaking;
     }
-
+    @Override
     public int getLength() {
         return length;
     }
+
+
 }
